@@ -45,6 +45,7 @@ function login(req,res){
     database.child(path).once('value')
     .then((snapshot) => {
 
+        let data = snapshot.val()
         if(hashPassword == snapshot.val().password)
         {
             return res.json({
@@ -54,9 +55,9 @@ function login(req,res){
     })
     .catch((err) => {
 
+        let error = err
         return res.json({
-            login : false,
-            err : err
+            login : false
         })
     })
 }
