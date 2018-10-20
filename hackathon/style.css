@@ -1,0 +1,15 @@
+.notification{
+	width:500px;
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.n-1{
+	width: 500px;
+	height:100px;
+	padding: 10px;
+	align-self: center;
+	margin: 50px;
+}
