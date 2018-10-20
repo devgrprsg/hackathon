@@ -16,6 +16,16 @@ app.use('/addProject',addProject)
 app.use('/addComment',addComment)
 app.use('/verifyProject',verifyProject)
 app.use('/addNotification',addNotification)
+app.use('/addPersonalData',addPersonalData)
+app.use('/deletePersonalData',deletePersonalData)
+app.use('/addStudent',addStudent)
+app.use('/addTeacher',addTeacher)
+
+app.get('/getPersonalData',getPersonalInfo)
+app.get('/getResults',getResults)
+app.get('/getProjects',getProjects)
+app.get('/getTeacherNotifications',getTeacherNotifications)
+app.get('/getDepartmentTeachers',getDepartmentTeachers)
 
 function addGrades(req,res){
 
@@ -205,6 +215,215 @@ function addNotification(req,res){
         res.json({
             success : false,
             message : "Error in adding notification"
+        })
+    })
+}
+
+function addPersonalData(req,res){
+
+    let fieldName = req.body.fieldName
+    let description = req.body.description
+    let rollNo = req.body.rollNo
+    let uid = crypto.createHash('md5').update(rollNo).digest('hex')
+    let fieldId = crypto.createHash('md5').update(fieldName).digest('hex')
+
+    let fieldPath = `students/${uid}/data/${fieldId}`
+
+    database.child(fieldPath).set({
+        fieldName : fieldName,
+        description : description
+    })
+    .then((snap) => {
+
+        res.json({
+            success : true,
+            data : snap.val()
+        })
+    })
+    .catch((err) => {
+
+        res.json({
+            success : false,
+            message : "Error in adding field"
+        })
+    })
+}
+
+function deletePersonalData(req,res){
+
+    let fieldName = req.body.fieldName
+    let rollNo = req.body.rollNo
+    let uid = crypto.createHash('md5').update(rollNo).digest('hex')
+    let fieldId = crypto.createHash('md5').update(fieldName).digest('hex')
+
+    let fieldPath = `students/${uid}/data/${fieldId}`
+
+    database.child(fieldPath).remove()
+    .then((snapshot) => {
+
+        res.send(snapshot.val())
+    })
+    .catch((err) => {
+
+        res.json({
+            success : false,
+            message : "Error in deleting personal data"
+        })
+    })
+}
+
+function addStudent(req,res){
+
+    let rollNo = req.body.rollNo
+    let password = req.body.studentPass
+
+    let uid = crypto.createHash('md5').update(rollNo).digest('hex')
+    let hashPassword = crypto.createHash('md5').update(password).digest('hex')
+    let studentPath = `studentCredentials/${uid}`
+
+    database.child(studentPath).set({
+        password : hashPassword
+    })
+    .then((snapshot) => {
+
+        res.json({
+            success : true,
+            message : "Student added successfully"
+        })
+    })
+    .catch((err) => {
+
+        res.json({
+            success : false,
+            message : "Error in adding student"
+        })
+    })
+}
+
+function addTeacher(req,res){
+
+    let teacherName = req.body.teacherName
+    let teacherId = req.body.teacherId
+    let password = req.body.teacherPass
+    let department = req.body.department
+
+    let uid = crypto.createHash('md5').update(teacherId).digest('hex')
+    let hashPassword = crypto.createHash('md5').update(password).digest('hex')
+    let teacherPath = `teacherCredentials/${department}/${uid}`
+
+    database.child(teacherPath).set({
+        teacherName : teacherName,
+        password : hashPassword
+    })
+    .then((snapshot) => {
+
+        res.json({
+            success : true,
+            message : "Teacher added successfully"
+        })
+    })
+    .catch((err) => {
+
+        res.json({
+            success : false,
+            message : "Error in adding student"
+        })
+    })
+}
+
+function getPersonalInfo(req,res){
+
+    let rollNo = req.query.rollNo
+    let uid = crypto.createHash('md5').update(rollNo).digest('hex')
+    let path = `students/${uid}/data`
+
+    database.child(path).once('value')
+    .then((snapshot) => {
+
+        res.send(snapshot.val())
+    })
+    .catch((err) => {
+
+        res.json({
+            success : false,
+            message : "Failed to fetch data"
+        })
+    })
+}
+
+function getResults(req,res){
+
+    let rollNo = req.query.rollNo
+    let uid = crypto.createHash('md5').update(rollNo).digest('hex')
+    let path = `students/${uid}/results`
+
+    database.child(path).once('value')
+    .then((snapshot) => {
+
+        res.send(snapshot.val())
+    })
+    .catch((err) => {
+
+        res.json({
+            success : false,
+            message : "Failed to fetch data"
+        })
+    })
+}
+
+function getProjects(req,res){
+
+    let rollNo = req.query.rollNo
+    let uid = crypto.createHash('md5').update(rollNo).digest('hex')
+    let path = `students/${uid}/projects`
+
+    database.child(path).once('value')
+    .then((snapshot) => {
+
+        res.send(snapshot.val())
+    })
+    .catch((err) => {
+
+        res.json({
+            success : false,
+            message : "Failed to fetch data"
+        })
+    })
+}
+
+function getDepartmentTeachers(req,res){
+
+    let department = req.query.department
+    let path = `teacherCredentials/${department}`
+    database.child(path)
+    .then((snapshot) => {
+
+        res.send(snapshot.val())
+    })
+    .catch((err) => {
+
+        res.json({
+            success : false,
+            message : "Error in fetching data"
+        })
+    })
+}
+
+function getTeacherNotifications(req,res){
+
+    let teacherId = req.body.teacherId
+    let hash = crypto.createHash('md5').update(teacherId).digest('hex')
+    let path = `teachers/${hash}`
+
+    database.child(path).once('value')
+    .then((snapshot) => {
+        res.send(snapshot.val())
+    })
+    .catch((err) => {
+
+        res.json({
+            success : false,
+            message : "Error in fetching data"
         })
     })
 }
