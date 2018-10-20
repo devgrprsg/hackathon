@@ -20,6 +20,7 @@ app.use('/addPersonalData',addPersonalData)
 app.use('/deletePersonalData',deletePersonalData)
 app.use('/addStudent',addStudent)
 app.use('/addTeacher',addTeacher)
+app.use('/getProjectNames',getProjectNames)
 
 app.get('/getPersonalData',getPersonalInfo)
 app.get('/getResults',getResults)
@@ -58,15 +59,12 @@ function addGrades(req,res){
         6 : `${subName6} : ${subMarks6}`
     })
     .then((snap) => {
-
-        res.json({
-            success : true,
-            message : 'Grades updated'
-        })
+        return res.send(snap.val())
     })
     .catch((err) => {
 
         res.json({
+            err : err,
             success : false,
             message : 'Error in upgrading the grades'
         })
@@ -96,14 +94,12 @@ function addProject(req,res){
     })
     .then((snap) => {
 
-        res.json({
-            success : true,
-            message : "Project added successfully"
-        })
+        return res.send(snap.val())
     })
     .catch((err) => {
 
         res.json({
+            err : err,
             success : false,
             message : "Error in adding project"
         })
@@ -130,14 +126,13 @@ function addComment(req,res){
     })
     .then((snap) => {
 
-        res.json({
-            success : true,
-            message : "Comment added successfully"
-        })
+        return res.send(snap.val())
     })
     .catch((err) => {
 
         res.json({
+
+            err : err,
             success : false,
             message : "Error in adding comment"
         })
@@ -170,16 +165,15 @@ function verifyProject(req,res){
 
         return database.child(projectPath).update(data)
     })
-    .then((snapshot) => {
+    .then((snap) => {
 
-        res.json({
-            success : true,
-            message : "Project Verified"
-        })
+        return res.send(snap.val())
     })
     .catch((err) => {
 
         res.json({
+
+            err : err,
             success : false,
             message : "Error in project verification"
         })
@@ -205,14 +199,13 @@ function addNotification(req,res){
     })
     .then((snap) => {
 
-        res.json({
-            success : true,
-            message : "Notification added"
-        })
+        return res.send(snap.val())
     })
     .catch((err) => {
 
         res.json({
+
+            err : err,
             success : false,
             message : "Error in adding notification"
         })
@@ -235,7 +228,7 @@ function addPersonalData(req,res){
     })
     .then((snap) => {
 
-        res.json({
+        return res.json({
             success : true,
             data : snap.val()
         })
@@ -243,6 +236,8 @@ function addPersonalData(req,res){
     .catch((err) => {
 
         res.json({
+
+            err : err,
             success : false,
             message : "Error in adding field"
         })
@@ -261,11 +256,13 @@ function deletePersonalData(req,res){
     database.child(fieldPath).remove()
     .then((snapshot) => {
 
-        res.send(snapshot.val())
+        return res.send(snapshot.val())
     })
     .catch((err) => {
 
         res.json({
+
+            err : err,
             success : false,
             message : "Error in deleting personal data"
         })
@@ -284,9 +281,9 @@ function addStudent(req,res){
     database.child(studentPath).set({
         password : hashPassword
     })
-    .then((snapshot) => {
+    .then(() => {
 
-        res.json({
+        return res.json({
             success : true,
             message : "Student added successfully"
         })
@@ -294,6 +291,8 @@ function addStudent(req,res){
     .catch((err) => {
 
         res.json({
+
+            err : err,
             success : false,
             message : "Error in adding student"
         })
@@ -315,9 +314,9 @@ function addTeacher(req,res){
         teacherName : teacherName,
         password : hashPassword
     })
-    .then((snapshot) => {
+    .then(() => {
 
-        res.json({
+        return res.json({
             success : true,
             message : "Teacher added successfully"
         })
@@ -325,6 +324,8 @@ function addTeacher(req,res){
     .catch((err) => {
 
         res.json({
+
+            err : err,
             success : false,
             message : "Error in adding student"
         })
@@ -340,11 +341,13 @@ function getPersonalInfo(req,res){
     database.child(path).once('value')
     .then((snapshot) => {
 
-        res.send(snapshot.val())
+        return res.send(snapshot.val())
     })
     .catch((err) => {
 
         res.json({
+
+            err : err,
             success : false,
             message : "Failed to fetch data"
         })
@@ -360,11 +363,13 @@ function getResults(req,res){
     database.child(path).once('value')
     .then((snapshot) => {
 
-        res.send(snapshot.val())
+        return res.send(snapshot.val())
     })
     .catch((err) => {
 
         res.json({
+
+            err : err,
             success : false,
             message : "Failed to fetch data"
         })
@@ -380,11 +385,13 @@ function getProjects(req,res){
     database.child(path).once('value')
     .then((snapshot) => {
 
-        res.send(snapshot.val())
+        return res.send(snapshot.val())
     })
     .catch((err) => {
 
         res.json({
+
+            err : err,
             success : false,
             message : "Failed to fetch data"
         })
@@ -398,11 +405,13 @@ function getDepartmentTeachers(req,res){
     database.child(path)
     .then((snapshot) => {
 
-        res.send(snapshot.val())
+        return res.send(snapshot.val())
     })
     .catch((err) => {
 
         res.json({
+
+            err : err,
             success : false,
             message : "Error in fetching data"
         })
@@ -417,13 +426,50 @@ function getTeacherNotifications(req,res){
 
     database.child(path).once('value')
     .then((snapshot) => {
-        res.send(snapshot.val())
+        return res.send(snapshot.val())
     })
     .catch((err) => {
 
         res.json({
+
+            err : err,
             success : false,
             message : "Error in fetching data"
+        })
+    })
+}
+
+function getProjectNames(req,res){
+
+    let rollNo = req.body.rollNo
+    let uid = crypto.createHash('md5').update(rollNo).digest('hex')
+    let path = `students/${uid}/projects`
+
+    database.child(path).once('value')
+    .then((snapshot) => {
+
+        let allData = snapshot.val()
+
+        let output = []
+
+        for(i in allData)
+        {
+            let name = allData[i].projectName
+
+            output.push({
+                projectName : name
+            })
+        }
+
+        return res.send(output)
+    })
+    .catch((err) => {
+
+        res.json({
+
+            err : err,
+            success : false,
+            message : "Error"
         })
     })
 }
