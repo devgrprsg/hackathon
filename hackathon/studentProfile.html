@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LinkBook</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="mainProfile.css">
+    <link rel="stylesheet" type="text/css" href="modal.css"> 
+    <link rel="stylesheet" type="text/css" href="profile.css"> 
+    <link rel="stylesheet" type="text/css" href="studentProfile.css">
+    <script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+    // animationEnabled: true,
+    theme: "light2",
+    title:{
+        text: "Semester 1"
+    },
+    axisY:{
+        includeZero: false
+    },
+    data: [{        
+        type: "line",       
+        dataPoints: [
+            { y: 450 },
+            { y: 414},
+            { y: 520 },
+            { y: 460 },
+            { y: 450 },
+            { y: 500 },
+            { y: 480 },
+            { y: 480 },
+            { y: 410 },
+            { y: 500 },
+            { y: 480 },
+            { y: 510 }
+        ]
+    }]
+});
+chart.render();
+
+}
+</script>
+
+</head>
+<body>
+    <div class="main">
+        <div class="graph">
+        <div id="chartContainer" style="height: 300px; width: 50%; border: 1px #000000 solid; margin-bottom: 10px"></div>
+        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        </div>
+        <div class="projects">
+            <div class="modalbox" id="sub_text">
+                      <div class="box">
+                        <a class="close" href="#text">X</a>
+                        <div class="sub_content">
+                          <div class="sub_main">
+                            <div class="space-1"></div>
+                            <div class="sub-1 b">Link</div>
+                            <div class="space-2"></div>
+                            <div class="sub-2 b">Description</div>
+                            <div class="space-3"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            <div style=" font-family: Verdana; margin-bottom: 10px"><b>Projects</b></div>
+            <div class="allProjects">
+                <li class="list" style=" font-family: Verdana; list-style: none;">
+                    <a href="#sub_text" style="color: #000000;"> <ul>Project Name</ul> </a>
+                    <a href="#sub_text" style="color: #000000;"> <ul>Project Name</ul> </a>
+                    <a href="#sub_text" style="color: #000000;"> <ul>Project Name</ul> </a>
+                </li>
+            </div>
+            <div class="addProject">
+                <div class="link-modal" id="linkmodal">
+                   <button> <a href="#text">Add Project</a> </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
