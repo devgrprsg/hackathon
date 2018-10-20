@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>admin</title>
+	<link rel="stylesheet" type="text/css" href="admin.css">
+	<link rel="stylesheet" type="text/css" href="personal_info.css">
+</head>
+<body>
+	<div class="main">
+		Admin Panel
+	</div>
+	<hr>
+	<div class="images">
+		<div class="i-1">
+		<figure>
+			<img src="add.png">
+			
+			<center><figcaption><button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add Student data</button></figcaption></center>
+		</figure>
+		</div>
+		<div class="i-1">
+		<figure>
+			<img src="add.png">
+			<center><figcaption><button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Add Student</button></figcaption></center>
+		</figure>
+		</div>
+		<div class="i-1">
+		<figure>
+			<img src="add.png">
+			<center><figcaption><button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Add Teacher</button></figcaption></center>
+		</figure>
+		</div>
+	</div>
+
+
+	<div id="id01" class="modal">
+  
+  <form class="modal-content animate" action="onClickAddData.html">
+
+    <div class="container">
+      <label for="uname"><b>Rollno</b></label>
+      <input type="text" placeholder="Enter Rollno" name="rollNo" required>
+
+      <label for="psw"><b>Semester</b></label>
+      <input type="password" placeholder="Enter Semester" name="semester" required>
+    	<label for="uname"><b>Subject 1</b></label>
+      <input type="text" placeholder="Enter Subject" name="subName1" required>
+
+      <label for="uname"><b>Subject1 Marks</b></label>
+      <input type="text" placeholder="Enter Subject marks" name="subMarks1" required>
+
+      <label for="uname"><b>Subject 2</b></label>
+      <input type="text" placeholder="Enter Subject" name="subName2" required>
+
+      <label for="uname"><b>Subject2 Marks</b></label>
+      <input type="text" placeholder="Enter Subject marks" name="subMarks2" required>
+
+      <label for="uname"><b>Subject 3</b></label>
+      <input type="text" placeholder="Enter Subject" name="subName3" required>
+
+      <label for="uname"><b>Subject3 Marks</b></label>
+      <input type="text" placeholder="Enter Subject marks" name="subMarks3" required>
+
+      <label for="uname"><b>Subject 4</b></label>
+      <input type="text" placeholder="Enter Subject" name="subName4" required>
+
+      <label for="uname"><b>Subject4 Marks</b></label>
+      <input type="text" placeholder="Enter Subject marks" name="subMarks4" required>
+
+      <label for="uname"><b>Subject 5</b></label>
+      <input type="text" placeholder="Enter Subject" name="subName5" required>
+
+      <label for="uname"><b>Subject5 Marks</b></label>
+      <input type="text" placeholder="Enter Subject marks" name="subMarks5" required>
+
+      <label for="uname"><b>Subject 6</b></label>
+      <input type="text" placeholder="Enter Subject" name="subName6" required>
+
+      <label for="uname"><b>Subject6 Marks</b></label>
+      <input type="text" placeholder="Enter Subject marks" name="subMarks6" required>
+        
+      <button>Add field</button>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      
+    </div>
+  </form>
+
+    <center><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button></center>
+    <br>
+    <br>
+</div>
+
+
+<div id="id02" class="modal">
+  
+  <form class="modal-content animate" action="onClickAddData.html">
+
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+    
+        
+      <button>Add Student</button>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      
+    </div>
+  </form>
+  <br>
+  <br>
+    <center><button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button></center>
+</div>
+
+
+<div id="id03" class="modal">
+  
+  <form class="modal-content animate" action="onClickAddData.html">
+
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+    
+        
+      <button>Add Teacher</button>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      
+    </div>
+  </form>
+  <br>
+  <br>
+    <center><button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button></center>
+</div>
+
+
+</body>
+</html>

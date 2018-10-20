@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../common/sidenav.css">
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" type="text/css" href="graph.css"> 
+<script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+    // animationEnabled:true,
+    theme: "light2",
+    title:{
+        text: "Semester"
+    },
+    axisY:{
+        includeZero: false
+    },
+    data: [{        
+        type: "line",       
+        dataPoints: [
+            { y: 450 },
+            { y: 414},
+            // , indexLabel: "highest",markerColor: "red", markerType: "triangle"
+            { y: 520 },
+            { y: 460 },
+            { y: 450 },
+            { y: 500 },
+            { y: 480 },
+            { y: 480 },
+            { y: 410 },
+            // , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" 
+            { y: 500 },
+            { y: 480 },
+            { y: 510 }
+        ]
+    }]
+});
+chart.render();
+
+var chart1 = new CanvasJS.Chart("chartContainer1", {
+    // animationEnabled:true,
+    theme: "light2",
+    title:{
+        text: "Semester"
+    },
+    axisY:{
+        includeZero: false
+    },
+    data: [{        
+        type: "line",       
+        dataPoints: [
+            { y: 450 },
+            { y: 414},
+            // , indexLabel: "highest",markerColor: "red", markerType: "triangle"
+            { y: 520 },
+            { y: 460 },
+            { y: 450 },
+            { y: 500 },
+            { y: 480 },
+            { y: 480 },
+            { y: 410 },
+            // , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" 
+            { y: 500 },
+            { y: 480 },
+            { y: 510 }
+        ]
+    }]
+});
+chart1.render();
+
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+    // animationEnabled:true,
+    theme: "light2",
+    title:{
+        text: "Semester"
+    },
+    axisY:{
+        includeZero: false
+    },
+    data: [{        
+        type: "line",       
+        dataPoints: [
+            { y: 450 },
+            { y: 414},
+            // , indexLabel: "highest",markerColor: "red", markerType: "triangle"
+            { y: 520 },
+            { y: 460 },
+            { y: 450 },
+            { y: 500 },
+            { y: 480 },
+            { y: 480 },
+            { y: 410 },
+            // , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" 
+            { y: 500 },
+            { y: 480 },
+            { y: 510 }
+        ]
+    }]
+});
+chart2.render();
+
+var chart3 = new CanvasJS.Chart("chartContainer3", {
+    // animationEnabled:true,
+    theme: "light2",
+    title:{
+        text: "Semester"
+    },
+    axisY:{
+        includeZero: false
+    },
+    data: [{        
+        type: "line",       
+        dataPoints: [
+            { y: 450 },
+            { y: 414},
+            // , indexLabel: "highest",markerColor: "red", markerType: "triangle"
+            { y: 520 },
+            { y: 460 },
+            { y: 450 },
+            { y: 500 },
+            { y: 480 },
+            { y: 480 },
+            { y: 410 },
+            // , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" 
+            { y: 500 },
+            { y: 480 },
+            { y: 510 }
+        ]
+    }]
+});
+chart3.render();
+
+var chart4 = new CanvasJS.Chart("chartContainer4", {
+    // animationEnabled:true,
+    theme: "light2",
+    title:{
+        text: "Semester"
+    },
+    axisY:{
+        includeZero: false
+    },
+    data: [{        
+        type: "line",       
+        dataPoints: [
+            { y: 450 },
+            { y: 414},
+            // , indexLabel: "highest",markerColor: "red", markerType: "triangle"
+            { y: 520 },
+            { y: 460 },
+            { y: 450 },
+            { y: 500 },
+            { y: 480 },
+            { y: 480 },
+            { y: 410 },
+            // , indexLabel: "lowest",markerColor: "DarkSlateGrey", markerType: "cross" 
+            { y: 500 },
+            { y: 480 },
+            { y: 510 }
+        ]
+    }]
+});
+chart4.render();
+
+}
+</script>
+</head>
+<body>
+    <!-- <div style="position: fixed;"> -->
+        <nav>
+    <a href="#" id="logout">
+        <span class="glyphicon glyphicon-log-in" style="font-size: 25px;color: black"></span>
+        <p style="font-size: 20px;color: black">Logout</p>
+    </a>
+
+    <div id="topDiv">
+        <p id="RESUME">RESUME</p>
+    </div>
+<!-- </div> -->
+    <hr>
+
+    <div class="sidenav">
+        <a href="../personalInfo/index.html">PERSONAL INFORMATION</a>
+        <a href="../academics/index.html">ACADEMICS</a>
+        <a href="../projects/index.html">PROJECTS</a>
+        <!-- <a href="#">CERTIFICATES</a> -->
+    </div>
+</nav>
+    <div style="position: absolute;height : 75%;overflow : auto;margin-top: 120px;margin-left: 250px;width: 75%;" class="main">
+    
+    <div id="chartContainer" style=" margin-left: 250px;height: 300px; width: 50%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <div id="chartContainer1" style=" margin-left: 250px; height: 300px; width: 50%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <div id="chartContainer2" style="margin-left: 250px; height: 300px; width: 50%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <div id="chartContainer3" style="margin-left: 250px; height: 300px; width: 50%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <div id="chartContainer4" style="margin-left: 250px; height: 300px; width: 50%;"></div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    
+    </div>
+
+</body>
+</html>

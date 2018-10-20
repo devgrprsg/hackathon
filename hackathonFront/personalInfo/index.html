@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="personal_info.css">
+   <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="../common/sidenav.css">
+    <link rel="stylesheet" href="../common/style.css">
+    
+</head>
+
+<body>
+    
+    <a href="#" id="logout">
+        <span class="glyphicon glyphicon-log-in" style="font-size: 25px;color: black"></span>
+        <p style="font-size: 20px;color: black">Logout</p>
+    </a>
+
+    <div id="topDiv">
+        <p id="RESUME">RESUME</p>
+    </div>
+
+    <hr>
+
+    <div class="sidenav">
+        <a href="../personalInfo/index.html">PERSONAL INFORMATION</a>
+        <a href="../academics/index.html">ACADEMICS</a>
+        <a href="../projects/index.html">PROJECTS</a>
+      <!--   <a href="#">CERTIFICATES</a> -->
+    </div>
+    <div align="center"><button onclick="document.getElementById('id01').style.display='block'" style="width:auto; margin-top: 150px;">Add data</button></div>
+<div id="id01" class="modal">
+  
+  <form class="modal-content animate" action="onClickAddData.html">
+
+    <div class="container">
+      <label for="uname"><b>Field</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>description</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+    
+        
+      <button>Add field</button>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      
+    </div>
+  </form>
+    <center><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button></center>
+</div>
+</body>
+</html>
