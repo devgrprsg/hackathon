@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../common/sidenav.css">
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" type="text/css" href="projects.css">
+    <link rel="stylesheet" type="text/css" href="personal_info.css">
+    <link rel="stylesheet" type="text/css" href="projectsAdd.css">
+</head>
+<body>
+    
+    <a href="#" id="logout">
+        <span class="glyphicon glyphicon-log-in" style="font-size: 25px;color: black"></span>
+        <p style="font-size: 20px;color: black">Logout</p>
+    </a>
+
+    <div id="topDiv">
+        <p id="RESUME">RESUME</p>
+    </div>
+
+    <hr>
+
+    <div class="sidenav">
+        <a href="../personalInfo/index.html">PERSONAL INFORMATION</a>
+        <a href="../academics/index.html">ACADEMICS</a>
+        <a href="../projects/index.html">PROJECTS</a>
+      <!--   <a href="#">CERTIFICATES</a> -->
+    </div>
+
+<div id="id01" class="modal1">
+  
+  <form class="modal-content1 animate1" action="/action_page.php">
+
+    <div class="container1">
+      <label for="uname"><b>project name</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>description</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+      <label for="uname"><b>git link</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+
+    <label for="psw"><b>Send for validation</b></label>
+    <br>
+      <select name="cars">
+    <option value="volvo">Chabbra chandra</option>
+    <option value="saab">Ritu</option>
+    <option value="fiat">Usha</option>
+    <option value="audi">Mayank dave</option>
+  </select>
+        
+      <button type="submit">Send</button>
+      
+    </div>
+
+    <!-- <div class="container" style="background-color:#f1f1f1">
+      
+    </div> -->
+  </form>
+        <center><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button></center>
+</div>
+
+
+        <div class="projects" style="margin-left: 250px; margin-top: 120px;">
+            <div style=" font-family: Verdana; margin-bottom: 10px"><b>Projects</b></div>
+            <div class="allProjects">
+                <li class="list" id="project_names" style=" font-family: Verdana; list-style: none;">
+                    <!-- <a href="project_des.html"><ul type="submit">Project Name</ul></a>
+                    <a href="project_des.html"><ul type="submit">Project Name</ul></a>
+                    <a href="project_des.html"><ul type="submit">Project Name</ul></a> -->
+                </li>
+            </div>
+            <div><button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add project</button></div>
+    </div>
+<script type="text/javascript" src="projects.js"></script>
+</body>
+</html>
