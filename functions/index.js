@@ -14,8 +14,8 @@ const database = admin.database().ref();
 app.use('/addGrades',addGrades)
 app.use('/addProject',addProject)
 app.use('/addComment',addComment)
-/*app.use('/verifyProject',verifyProject)
-app.use('/addNotification',addNotification) */
+app.use('/verifyProject',verifyProject)
+app.use('/addNotification',addNotification)
 
 function addGrades(req,res){
 
@@ -108,9 +108,105 @@ function addComment(req,res){
     let teacherName = req.body.teacherName
 
 
-    let commentPath = crypto.createHash('md5').update(rollNo).digest('hex')
+    let uid = crypto.createHash('md5').update(rollNo).digest('hex')
     let projectId = crypto.createHash('md5').update(projectName).digest('hex')
 
+    let commentPath = `students/${uid}/projects/${projectId}/comments`
+
+    database.child(commentPath).push({
+      
+        teacherName : teacherName,
+        comment : comment
+    })
+    .then((snap) => {
+
+        res.json({
+            success : true,
+            message : "Comment added successfully"
+        })
+    })
+    .catch((err) => {
+
+        res.json({
+            success : false,
+            message : "Error in adding comment"
+        })
+    })
+}
+
+function verifyProject(req,res){
+
+    let rollNo = req.body.rollNo
+    let projectName = req.body.projectName
+    let teacherName = req.body.teacherName
+    let rating = req.body.rating
+
+    let uid = crypto.createHash('md5').update(rollNo).digest('hex')
+    let projectId = crypto.createHash('md5').update(projectName).digest('hex')
+
+    let projectPath = `students/${uid}/projects/${projectId}`
+
+    database.child(projectPath).once('value')
+    .then((snapshot) => {
+
+        let data = {
+            projectName : snapshot.val().projectName,
+            projectDescription : snapshot.val().projectDescription,
+            gitLink : snapshot.val().gitLink,
+            verified : true,
+            verifiedBy : teacherName,
+            rating : rating
+        }
+
+        return database.child(projectPath).update(data)
+    })
+    .then((snapshot) => {
+
+        res.json({
+            success : true,
+            message : "Project Verified"
+        })
+    })
+    .catch((err) => {
+
+        res.json({
+            success : false,
+            message : "Error in project verification"
+        })
+    })
+}
+
+function addNotification(req,res){
+
+    let teacherName = req.body.teacherName
+    let projectLink = req.body.projectLink
+    let rollNo = req.body.rollNo
+
+    let uid = crypto.createHash('md5').update(rollNo).digest('hex')
+    //let projectId = crypto.createHash('md5').update(projectName).digest('hex')
+    let teacherId = crypto.createHash('md5').update(teacherName).digest('hex')
+
+    let notificationPath = `teachers/${teacherId}/notification`
+
+    database.child(notificationPath).push({
+
+        RollNo : rollNo,
+        ProjectLink : projectLink
+    })
+    .then((snap) => {
+
+        res.json({
+            success : true,
+            message : "Notification added"
+        })
+    })
+    .catch((err) => {
+
+        res.json({
+            success : false,
+            message : "Error in adding notification"
+        })
+    })
 }
 
 exports.api = functions.https.onRequest(app)
