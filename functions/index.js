@@ -52,7 +52,16 @@ function login(req,res){
             })
         }
     })
+    .catch((err) => {
+
+        return res.json({
+            login : false,
+            err : err
+        })
+    })
 }
+
+
 
 function addGrades(req,res){
 
