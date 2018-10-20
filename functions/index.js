@@ -3,9 +3,12 @@ const admin = require('firebase-admin')
 const express = require('express')
 const bodyParser = require('body-parser')
 const crypto = require('crypto')
+const cors = require('cors')
 
 admin.initializeApp()
 const app = express()
+
+app.use(cors({origin:true}))
 
 app.use(bodyParser.urlencoded({extended:false}));
 
@@ -21,12 +24,35 @@ app.use('/deletePersonalData',deletePersonalData)
 app.use('/addStudent',addStudent)
 app.use('/addTeacher',addTeacher)
 app.use('/getProjectNames',getProjectNames)
+app.use('/login',login)
 
 app.get('/getPersonalData',getPersonalInfo)
 app.get('/getResults',getResults)
 app.get('/getProjects',getProjects)
 app.get('/getTeacherNotifications',getTeacherNotifications)
 app.get('/getDepartmentTeachers',getDepartmentTeachers)
+
+function login(req,res){
+
+    let rollNo = req.body.rollNo
+    let password = req.body.password
+
+    let uid = crypto.createHash('md5').update(rollNo).digest('hex')
+    let hashPassword = crypto.createHash('md5').update(password).digest('hex')
+
+    let path = `studentCredentials/${uid}`
+
+    database.child(path).once('value')
+    .then((snapshot) => {
+
+        if(hashPassword == snapshot.val().password)
+        {
+            return res.json({
+                login : true
+            })
+        }
+    })
+}
 
 function addGrades(req,res){
 
