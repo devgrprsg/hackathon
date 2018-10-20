@@ -46,10 +46,16 @@ function login(req,res){
     .then((snapshot) => {
 
         let data = snapshot.val()
-        if(hashPassword == snapshot.val().password)
+        if(hashPassword === snapshot.val().password)
         {
             return res.json({
                 login : true
+            })
+        }
+        else
+        {
+            return res.json({
+                login : false
             })
         }
     })
