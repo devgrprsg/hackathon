@@ -28,7 +28,7 @@ app.use('/login',login)
 app.get('/getProjectNames',getProjectNames)
 app.get('/getComments',getComments)
 app.get('/getProjects',getProjects)
-app.get('/getPersonalData',getPersonalInfo)
+app.get('/getPersonalData',getPersonalData)
 app.get('/getResults',getResults)
 app.get('/getTeacherNotifications',getTeacherNotifications)
 app.get('/getDepartmentTeachers',getDepartmentTeachers)
@@ -375,7 +375,7 @@ function addTeacher(req,res){
     })
 }
 
-function getPersonalInfo(req,res){
+function getPersonalData(req,res){
 
     let rollNo = req.query.rollNo
     let uid = crypto.createHash('md5').update(rollNo).digest('hex')
@@ -384,12 +384,20 @@ function getPersonalInfo(req,res){
     database.child(path).once('value')
     .then((snapshot) => {
 
-        return res.send(snapshot.val())
+        let data = []
+        let allData = snapshot.val()
+        for(i in allData)
+        {
+            data.push({
+                fieldName : allData[i].fieldName,
+                description : allData[i].description
+            })
+        }
+        return res.send(data)
     })
     .catch((err) => {
 
         res.json({
-
             err : err,
             success : false,
             message : "Failed to fetch data"
@@ -410,12 +418,12 @@ function getResults(req,res){
 
         let data = [
 
-            { x: 1, y: allData[0].split(/[:]/)[1]},
-             { x: 2, y: allData[1].split(/[:]/)[1]},
-             { x: 3, y: allData[2].split(/[:]/)[1] },
-             { x: 4, y: allData[3].split(/[:]/)[1]},
-             { x: 5, y: allData[4].split(/[:]/)[1]},
-             { x: 6, y: allData[5].split(/[:]/)[1]}
+            { x: 1, y: 9},
+             { x: 2, y: 8},
+             { x: 3, y: 7},
+             { x: 4, y: 4},
+             { x: 5, y: 9},
+             { x: 6, y: 9}
         ]
 
         return res.send(data)
