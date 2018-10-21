@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <script type="text/javascript">
+
+    function japi(api,fn) {
+  var ourRequest=new XMLHttpRequest();
+  ourRequest.open('GET',api,true);
+  ourRequest.onload=fn;
+
+  ourRequest.send();
+  }
+  function fun(req)
+  {
+    var details=JSON.parse(req.explicitOriginalTarget.responseText);
+    console.log(details);
+    r(details);
+  }
+  var pn= document.getElementById("project_names");
+  function project_names(item,index)
+  {
+    window.alert("hey");
+    var j='<a href="project_des.html?projectName='+item.projectName+'"><ul type="submit">'+item.projectName+'</ul></a>';
+    pn.innerHTML=pn.innerHTML+j;
+  }
+
+
+  japi('http://us-central1-hackathon-692e4.cloudfunctions.net/api/getResults?rollNo=11610171',fun);
+
+
+
+
+function r(details) {
+    var jj={
+      title:{
+       text: "Semester 1"
+      },
+      data: [
+      {
+        markerType: "cross",
+        markerSize: 1,
+        type: "line",
+        showInLegend: true,
+        
+      }
+      ]
+    };
+    var chart = new CanvasJS.Chart("chartContainer",
+    );
+
+    chart.render();
+  }
+  </script>
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<body>
+  <div id="chartContainer" style="height: 300px; width: 100%;">
+  </div>
+</body>
+</html>
