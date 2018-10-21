@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="personal_info.css">
+   <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="../common/sidenav.css">
+    <link rel="stylesheet" href="../common/style.css">
+    <link rel="stylesheet" type="text/css" href="personal_info.css">
+<link rel="stylesheet" type="text/css" href="onClickAddData.css">
+<script type="text/javascript">
+       function urlencodeFormData(fd){
+    var s = '';
+    function encode(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
+    for(var pair of fd.entries()){
+        if(typeof pair[1]=='string'){
+            s += (s?'&':'') + encode(pair[0])+'='+encode(pair[1]);
+        }
+    }
+    return s;
+}
+
+  window.addEventListener("load", function () {
+  function sendData() {
+    var XHR = new XMLHttpRequest();
+
+    // Bind the FormData object and the form element
+    var FD = new FormData(form);
+
+    // Define what happens on successful data submission
+    XHR.addEventListener("load", function(event) {
+      // alert(event.target.responseText);
+       window.location="onClickAddData.html";
+    });
+
+    // Define what happens in case of error
+    XHR.addEventListener("error", function(event) {
+      alert('Oops! Something went wrong.');
+    });
+
+    // Set up our request
+    XHR.open("POST", "https://us-central1-hackathon-692e4.cloudfunctions.net/api/addPersonalData");
+    XHR.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+
+    // The data sent is what the user provided in the form
+    XHR.send(urlencodeFormData(FD));
+  }
+ 
+  // Access the form element...
+  var form = document.getElementById("form_click");
+
+  // ...and take over its submit event.
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    sendData();
+  });
+});
+
+</script>
+</script>
+</head>
+
+<body>
+    
+    <a href="#" id="logout">
+        <span class="glyphicon glyphicon-log-in" style="font-size: 25px;color: black"></span>
+        <p style="font-size: 20px;color: black">Logout</p>
+    </a>
+
+    <div id="topDiv">
+        <p id="RESUME">RESUME</p>
+    </div>
+
+    <hr>
+
+    <div class="sidenav">
+        <a href="../personalInfo/onClickAddData.html">PERSONAL INFORMATION</a>
+        <a href="../academics/index.html">ACADEMICS</a>
+        <a href="../projects/index.html">PROJECTS</a>
+      <!--   <a href="#">CERTIFICATES</a> -->
+    </div>
+
+    <div>
+      <div id="data">
+    <!-- <div class="main">
+      <div class="m-1">Objective</div>
+      <div class="m-2"><hr></div>
+      <div class="m-3">Description</div>
+    </div> -->
+    <!-- <div class="main">
+      <div class="m-1">Objective</div>
+      <div class="m-2"><hr></div>
+      <div class="m-3">Description</div>
+    </div>
+    <div class="main">
+      <div class="m-1">Objective</div>
+      <div class="m-2"><hr></div>
+      <div class="m-3">Description</div>
+    </div> -->
+</div>
+    <div id="id01" class="modal">
+  
+  <form id="form_click" method="POST" class="modal-content animate" action="https://us-central1-hackathon-692e4.cloudfunctions.net/api/addPersonalData">
+
+    <div class="container">
+      <label for="fieldName"><b>Field</b></label>
+      <input type="text" placeholder="Enter fieldname" name="fieldName" required>
+
+      <label for="description"><b>description</b></label>
+      <input type="text" placeholder="Enter description" name="description" required>
+
+      <label for="rollNo"><b>Roll No</b></label>
+      <input type="text" placeholder="Enter RollNo" name="rollNo" required> 
+    
+        
+      <input type="submit" value="Add Field"/>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      
+    </div>
+  </form>
+<br>
+  <center><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button></center>
+</div>
+<br>
+    <div align="center"><button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add data</button></div>
+    </div>
+
+    <div align="center"><button onclick="document.getElementById('id01').style.display='block'" style="width:auto; margin-top: 150px;">Add data</button></div>
+<div id="id01" class="modal">
+  
+  <form   id="form_click" method="POST" class="modal-content animate" action="https://us-central1-hackathon-692e4.cloudfunctions.net/api/addPersonalData">
+
+    <div class="container">
+      <label for="fieldName"><b>Field</b></label>
+      <input type="text" placeholder="Enter fieldname" name="fieldName" required>
+
+      <label for="description"><b>description</b></label>
+      <input type="text" placeholder="Enter description" name="description" required>
+
+      <label for="rollNo"><b>Roll No</b></label>
+      <input type="text" placeholder="Enter RollNo" name="rollNo" required>      
+    
+        
+      <!-- <button>Add field</button> -->
+      <input type="submit" value="Add Field"/>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      
+    </div>
+  </form>
+    <center><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button></center>
+</div>
+
+
+<script type="text/javascript" src="ocad.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>admin</title>
+	<link rel="stylesheet" type="text/css" href="admin.css">
+	<link rel="stylesheet" type="text/css" href="personal_info.css">
+  <script type="text/javascript">
+    function redirect(e)
+    {
+      e.preventDefault();
+       window.location="././personalInfo/index.html";
+    }
+    function urlencodeFormData(fd){
+    var s = '';
+    function encode(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
+    for(var pair of fd.entries()){
+        if(typeof pair[1]=='string'){
+            s += (s?'&':'') + encode(pair[0])+'='+encode(pair[1]);
+        }
+    }
+    return s;
+}
+
+  window.addEventListener("load", function () {
+  function sendData() {
+    var XHR = new XMLHttpRequest();
+
+    // Bind the FormData object and the form element
+    var FD = new FormData(form);
+
+    // Define what happens on successful data submission
+    XHR.addEventListener("load", function(event) {
+      // alert(event.target.responseText);
+       window.location="../personalInfo/index.html";
+    });
+
+    // Define what happens in case of error
+    XHR.addEventListener("error", function(event) {
+      alert('Oops! Something went wrong.');
+    });
+
+    // Set up our request
+    XHR.open("POST", "https://us-central1-hackathon-692e4.cloudfunctions.net/api/addStudent");
+    XHR.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+
+    // The data sent is what the user provided in the form
+    XHR.send(urlencodeFormData(FD));
+  }
+ 
+  // Access the form element...
+  var form = document.getElementById("form_click");
+
+  // ...and take over its submit event.
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    sendData();
+  });
+});
+
+window.addEventListener("load", function () {
+  function sendStudentData() {
+    var XHR = new XMLHttpRequest();
+
+    // Bind the FormData object and the form element
+    var FD = new FormData(form);
+
+    // Define what happens on successful data submission
+    XHR.addEventListener("load", function(event) {
+      // alert(event.target.responseText);
+       window.location="../personalInfo/index.html";
+    });
+
+    // Define what happens in case of error
+    XHR.addEventListener("error", function(event) {
+      alert('Oops! Something went wrong.');
+    });
+
+    // Set up our request
+    XHR.open("POST", "https://us-central1-hackathon-692e4.cloudfunctions.net/api/addGrades");
+    XHR.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+
+    // The data sent is what the user provided in the form
+    XHR.send(urlencodeFormData(FD));
+  }
+ 
+  // Access the form element...
+  var form = document.getElementById("add_student");
+
+  // ...and take over its submit event.
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    sendStudentData();
+  });
+});
+
+window.addEventListener("load", function () {
+  function sendTeacherData() {
+    var XHR = new XMLHttpRequest();
+
+    // Bind the FormData object and the form element
+    var FD = new FormData(form);
+
+    // Define what happens on successful data submission
+    XHR.addEventListener("load", function(event) {
+      // alert(event.target.responseText);
+       window.location="../personalInfo/index.html";
+    });
+
+    // Define what happens in case of error
+    XHR.addEventListener("error", function(event) {
+      alert('Oops! Something went wrong.');
+    });
+
+    // Set up our request
+    XHR.open("POST", "https://us-central1-hackathon-692e4.cloudfunctions.net/api/addGrades");
+    XHR.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+
+    // The data sent is what the user provided in the form
+    XHR.send(urlencodeFormData(FD));
+  }
+ 
+  // Access the form element...
+  var form = document.getElementById("add_teacher");
+
+  // ...and take over its submit event.
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    sendTeacherData();
+  });
+});
+
+  </script>
+</head>
+<body>
+	<div class="main">
+		Admin Panel
+	</div>
+	<hr>
+	<div class="images">
+		<div class="i-1">
+		<figure>
+			<img src="add.jpg">
+			
+			<center><figcaption><button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Add Student data</button></figcaption></center>
+		</figure>
+		</div>
+		<div class="i-1">
+		<figure>
+			<img src="add.jpg">
+			<center><figcaption><button onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Add Student</button></figcaption></center>
+		</figure>
+		</div>
+		<div class="i-1">
+		<figure>
+			<img src="add.jpg">
+			<center><figcaption><button onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Add Teacher</button></figcaption></center>
+		</figure>
+		</div>
+	</div>
+
+
+	<div id="id01" class="modal">
+  
+  <form id="add_student" method="POST" class="modal-content animate" action="https://us-central1-hackathon-692e4.cloudfunctions.net/api/addGrades">
+
+    <div class="container">
+      <label for="rollNo"><b>Rollno</b></label>
+      <input type="text" placeholder="Enter Rollno" name="rollNo" required>
+
+      <label for="semester"><b>Semester</b></label>
+      <input type="text" placeholder="Enter Semester" name="semester" required>
+    	<label for="subName1"><b>Subject 1</b></label>
+      <input type="text" placeholder="Enter Subject" name="subName1" required>
+
+      <label for="subMarks1"><b>Subject1 Marks</b></label>
+      <input type="text" placeholder="Enter Subject marks" name="subMarks1" required>
+
+      <label for="subName2"><b>Subject 2</b></label>
+      <input type="text" placeholder="Enter Subject" name="subName2" required>
+
+      <label for="subMarks2"><b>Subject2 Marks</b></label>
+      <input type="text" placeholder="Enter Subject marks" name="subMarks2" required>
+
+      <label for="subName3"><b>Subject 3</b></label>
+      <input type="text" placeholder="Enter Subject" name="subName3" required>
+
+      <label for="subMarks3"><b>Subject3 Marks</b></label>
+      <input type="text" placeholder="Enter Subject marks" name="subMarks3" required>
+
+      <label for="subName4"><b>Subject 4</b></label>
+      <input type="text" placeholder="Enter Subject" name="subName4" required>
+
+      <label for="subMarks4"><b>Subject4 Marks</b></label>
+      <input type="text" placeholder="Enter Subject marks" name="subMarks4" required>
+
+      <label for="subName5"><b>Subject 5</b></label>
+      <input type="text" placeholder="Enter Subject" name="subName5" required>
+
+      <label for="subMarks5"><b>Subject5 Marks</b></label>
+      <input type="text" placeholder="Enter Subject marks" name="subMarks5" required>
+
+      <label for="subName6"><b>Subject 6</b></label>
+      <input type="text" placeholder="Enter Subject" name="subName6" required>
+
+      <label for="subMarks6"><b>Subject6 Marks</b></label>
+      <input type="text" placeholder="Enter Subject marks" name="subMarks6" required>
+        
+       <input type="submit" value="Add Field"/>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      
+    </div>
+  </form>
+
+    <center><button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button></center>
+    <br>
+    <br>
+</div>
+
+
+<div id="id02" class="modal">
+  
+  <form  id="form_click" method="POST" class="modal-content animate" action="https://us-central1-hackathon-692e4.cloudfunctions.net/api/addStudent">
+
+    <div class="container">
+      <label for="rollNo"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="rollNo" required>
+
+      <label for="studentPass"><b>password</b></label>
+      <input type="password" placeholder="Enter Password" name="studentPass" required>
+    
+        
+      <input type="submit" value="Add Student"/>
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      
+    </div>
+  </form>
+  <br>
+  <br>
+    <center><button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button></center>
+</div>
+
+
+<div id="id03" class="modal">
+  
+  <form id="add_teacher" method="POST" class="modal-content animate" action="https://us-central1-hackathon-692e4.cloudfunctions.net/api/addTeacher">
+
+    <div class="container">
+      <label for="teacherId"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="teacherId" required>
+
+      <label for="teacherPass"><b>password</b></label>
+      <input type="password" placeholder="Enter Password" name="teacherPass" required>
+
+      <label for="teacherName"><b>Name</b></label>
+      <input type="text" placeholder="Enter name" name="teacherName" required>
+
+      <label for="department"><b>Department Name</b></label>
+      <input type="text" placeholder="Enter Department name" name="department" required>
+    
+        <input type="submit" value="Add Teacher"/>
+      <!-- <button>Add Teacher</button> -->
+      
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      
+    </div>
+  </form>
+  <br>
+  <br>
+    <center><button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button></center>
+</div>
+
+
+</body>
+</html>
