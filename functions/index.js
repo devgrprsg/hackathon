@@ -10,7 +10,7 @@ const app = express()
 
 app.use(cors({origin:true}))
 
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true}));
 
 const database = admin.database().ref();
 
@@ -23,12 +23,13 @@ app.use('/addPersonalData',addPersonalData)
 app.use('/deletePersonalData',deletePersonalData)
 app.use('/addStudent',addStudent)
 app.use('/addTeacher',addTeacher)
-app.use('/getProjectNames',getProjectNames)
 app.use('/login',login)
 
+app.get('/getProjectNames',getProjectNames)
+app.get('/getComments',getComments)
+app.get('/getProjects',getProjects)
 app.get('/getPersonalData',getPersonalInfo)
 app.get('/getResults',getResults)
-app.get('/getProjects',getProjects)
 app.get('/getTeacherNotifications',getTeacherNotifications)
 app.get('/getDepartmentTeachers',getDepartmentTeachers)
 
@@ -93,12 +94,12 @@ function addGrades(req,res){
     let gradesPath = `students/${uid}/grades/${semester}`;
     database.child(gradesPath).set({
         
-        1 : `${subName1} : ${subMarks1}`,
-        2 : `${subName2} : ${subMarks2}`,
-        3 : `${subName3} : ${subMarks3}`,
-        4 : `${subName4} : ${subMarks4}`,
-        5 : `${subName5} : ${subMarks5}`,
-        6 : `${subName6} : ${subMarks6}`
+        0 : `${subName1} : ${subMarks1}`,
+        1 : `${subName2} : ${subMarks2}`,
+        2 : `${subName3} : ${subMarks3}`,
+        3 : `${subName4} : ${subMarks4}`,
+        4 : `${subName5} : ${subMarks5}`,
+        5 : `${subName6} : ${subMarks6}`
     })
     .then((snap) => {
         return res.send(snap.val())
@@ -369,7 +370,7 @@ function addTeacher(req,res){
 
             err : err,
             success : false,
-            message : "Error in adding student"
+            message : "Error in adding teacher"
         })
     })
 }
@@ -400,7 +401,44 @@ function getResults(req,res){
 
     let rollNo = req.query.rollNo
     let uid = crypto.createHash('md5').update(rollNo).digest('hex')
-    let path = `students/${uid}/results`
+    let path = `students/${uid}/grades`
+
+    database.child(path).once('value')
+    .then((snapshot) => {
+
+        let allData = snapshot.val()
+
+        let data = [
+
+            { x: 1, y: allData[0].split(/[:]/)[1]},
+             { x: 2, y: allData[1].split(/[:]/)[1]},
+             { x: 3, y: allData[2].split(/[:]/)[1] },
+             { x: 4, y: allData[3].split(/[:]/)[1]},
+             { x: 5, y: allData[4].split(/[:]/)[1]},
+             { x: 6, y: allData[5].split(/[:]/)[1]}
+        ]
+
+        return res.send(data)
+    })
+    .catch((err) => {
+
+        res.json({
+
+            err : err,
+            success : false,
+            message : "Failed to fetch data"
+        })
+    })
+}
+
+function getProjects(req,res){
+
+    let rollNo = req.query.rollNo
+    let projectName = req.query.projectName
+    let uid = crypto.createHash('md5').update(rollNo).digest('hex')
+    let pid = crypto.createHash('md5').update(projectName).digest('hex')
+
+    let path = `students/${uid}/projects/${pid}`
 
     database.child(path).once('value')
     .then((snapshot) => {
@@ -418,25 +456,34 @@ function getResults(req,res){
     })
 }
 
-function getProjects(req,res){
+function getComments(req,res){
 
     let rollNo = req.query.rollNo
+    let projectName = req.query.projectName
+
     let uid = crypto.createHash('md5').update(rollNo).digest('hex')
-    let path = `students/${uid}/projects`
+    let pid = crypto.createHash('md5').update(projectName).digest('hex')
+
+    let path = `students/${uid}/projects/${pid}/comments`
+    let arr = []
 
     database.child(path).once('value')
     .then((snapshot) => {
 
-        return res.send(snapshot.val())
+        let allData = snapshot.val()
+
+        for(i in allData)
+        {
+            arr.push({
+                name : allData[i].teacherName,
+                comment : allData[i].comment
+            })
+        }
+        return res.send(arr)
     })
     .catch((err) => {
 
-        res.json({
-
-            err : err,
-            success : false,
-            message : "Failed to fetch data"
-        })
+        return res.send(err)
     })
 }
 
@@ -483,7 +530,7 @@ function getTeacherNotifications(req,res){
 
 function getProjectNames(req,res){
 
-    let rollNo = req.body.rollNo
+    let rollNo = req.query.rollNo
     let uid = crypto.createHash('md5').update(rollNo).digest('hex')
     let path = `students/${uid}/projects`
 
